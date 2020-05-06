@@ -6,13 +6,14 @@ This library implements the Redis-based distributed lock manager algorithm [desc
 
 To create a lock manager:
 
-Locks can be provided using an array of server tuples made up of the server name (required), connection port (optional), and connection timeout (optional), or by using already-connected Redis objects,
+Locks can be provided using an array of server tuples made up of the server name (required), connection port (optional), connection timeout (optional) and auth (optional), or by using already-connected Redis objects,
 
 ```php
 $server = new \Redis;
 $server->connect('127.0.0.1');
 
 $servers = [
+    ['127.0.0.1', 6379, 0.01, 'redisAuthString'],
     ['127.0.0.1', 6379, 0.01],
     ['127.0.0.1'],
     $server,

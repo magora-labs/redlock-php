@@ -73,9 +73,19 @@ class RedLock
                     if (empty($server[2])) {
                         $server[2] = 0;
                     }
-                    list($host, $port, $timeout) = $server;
+
+                    $pw = null;
+                    if(count($server) === 4) {
+                        list($host, $port, $timeout, $pw) = $server;
+                    } else {
+                        list($host, $port, $timeout) = $server;
+                    }
+                    
                     $redis = new \Redis();
                     $redis->connect($host, $port, $timeout);
+                    if (!is_null($pw)) {
+                        $redis->auth($pw);
+                    }
                 }
                 $this->instances[] = $redis;
             }
